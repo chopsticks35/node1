@@ -17,11 +17,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 
 // Routes \\
-app.get('/', function(req, res){
-  res.header('Content-Type', 'text/html')
-  res.send(exportObject.fileContents)
+app.get('/', function (req, res) {
+    fs.readFile(fileContents, function(err, contents) {
+        res.header('Content-Type', 'text/html');
+        res.send(contents);
+    });
 });
-
+    
 // Creating Server and Listening for Connections \\
 var port = 3000
 app.listen(port, function(){
